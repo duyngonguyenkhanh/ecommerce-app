@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./component/HomePage";
 import ShopPage from "./component/ShopPage";
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <DataProvider>
         {/* BrowserRouter được sử dụng để kích hoạt tính năng định tuyến trong ứng dụng */}
-        <BrowserRouter>
+        <HashRouter>
           {/* Routes được sử dụng để định nghĩa tất cả các tuyến đường trong ứng dụng */}
           <Routes>
             {/* Tuyến đường mặc định, khi người dùng truy cập vào root URL */}
@@ -41,7 +41,7 @@ function App() {
             {/* Tuyến đường cho trang thanh toán */}
             <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </DataProvider>
     </div>
   );
