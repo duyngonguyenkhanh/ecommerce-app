@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ecommerce-app/static/css/main.5da76dce.css",
-    "main.js": "/ecommerce-app/static/js/main.776f001a.js",
+    "main.css": "/ecommerce-app/static/css/main.6b627b24.css",
+    "main.js": "/ecommerce-app/static/js/main.223ccb8a.js",
     "static/js/453.55b2104b.chunk.js": "/ecommerce-app/static/js/453.55b2104b.chunk.js",
     "static/media/fa-solid-900.ttf": "/ecommerce-app/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
     "static/media/fa-brands-400.ttf": "/ecommerce-app/static/media/fa-brands-400.60127e352b7a11f7f1bc.ttf",
@@ -14,18 +14,23 @@
     "static/media/product_1.png": "/ecommerce-app/static/media/product_1.b24c110a233df54143c8.png",
     "static/media/product_5.png": "/ecommerce-app/static/media/product_5.b963def7555b7544d220.png",
     "static/media/banner1.jpg": "/ecommerce-app/static/media/banner1.4a22881c941f7b645fa8.jpg",
+    "static/media/programmer.png": "/ecommerce-app/static/media/programmer.2cf59421a63d9f0250bc.png",
     "static/media/fa-regular-400.woff2": "/ecommerce-app/static/media/fa-regular-400.21cb8f55d8e0c5b89751.woff2",
+    "static/media/happy.png": "/ecommerce-app/static/media/happy.2b26e211c11c18df48bc.png",
+    "static/media/telegram.png": "/ecommerce-app/static/media/telegram.b76beae5b2e76931bec1.png",
+    "static/media/school.png": "/ecommerce-app/static/media/school.104fe20bf337ee8dbf44.png",
+    "static/media/messenger.png": "/ecommerce-app/static/media/messenger.3d51cbc50798f3751fa0.png",
     "static/media/leftarrowicon.png": "/ecommerce-app/static/media/leftarrowicon.a8789e2ed211a98dae77.png",
     "static/media/rightarrowicon.png": "/ecommerce-app/static/media/rightarrowicon.567dc6ef314e5cecc076.png",
     "static/media/fa-v4compatibility.ttf": "/ecommerce-app/static/media/fa-v4compatibility.c8e090db312b0bea2aa2.ttf",
     "static/media/fa-v4compatibility.woff2": "/ecommerce-app/static/media/fa-v4compatibility.cf7f5903d06b79ad60f1.woff2",
     "index.html": "/ecommerce-app/index.html",
-    "main.5da76dce.css.map": "/ecommerce-app/static/css/main.5da76dce.css.map",
-    "main.776f001a.js.map": "/ecommerce-app/static/js/main.776f001a.js.map",
+    "main.6b627b24.css.map": "/ecommerce-app/static/css/main.6b627b24.css.map",
+    "main.223ccb8a.js.map": "/ecommerce-app/static/js/main.223ccb8a.js.map",
     "453.55b2104b.chunk.js.map": "/ecommerce-app/static/js/453.55b2104b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5da76dce.css",
-    "static/js/main.776f001a.js"
+    "static/css/main.6b627b24.css",
+    "static/js/main.223ccb8a.js"
   ]
 }
