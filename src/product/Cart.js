@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { updateCart } from "../redux/cartSlice";
 import { deleteCart } from "../redux/cartSlice";
 import { useNavigation } from "../layout/useNavigation";
+import { decrementProduct, incrementProduct } from "../redux/thunk/changeQuantity";
+import { getCartItems } from "../redux/thunk/getCart";
 
 
 const Cart = ({ items }) => {
@@ -10,14 +12,17 @@ const Cart = ({ items }) => {
   const dispatch = useDispatch();
   const handleNavigate = useNavigation();
 
+  
   // Hàm tăng quantity
   const increase = (id, quantity) => {
-    dispatch(updateCart({ id, quantity: quantity + 1 }));
+    dispatch(incrementProduct({ productId: id }));
+    dispatch(getCartItems());
   };
   // Hàm giảm quantity
   const decrease = (id, quantity) => {
     if (quantity > 1) {
-      dispatch(updateCart({ id, quantity: quantity - 1 }));
+      dispatch(decrementProduct({ productId: id  }));
+      dispatch(getCartItems());
     }
   };
   return (

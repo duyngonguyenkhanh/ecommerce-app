@@ -1,26 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import banner from "../images/banner1.jpg";
 import { useNavigation } from "../layout/useNavigation";
+import { useSelector, useDispatch } from "react-redux";
 import "../style/style.css";
+import { SignupUser } from "../redux/thunk/signup";
+import { resetState } from "../redux/authSlice";
 
 const SignUp = () => {
   // Khởi tạo Navigate để chuyển hướng
   const navigate = useNavigation();
+  //Khởi tạo dispatch
+  const dispatch = useDispatch();
+  //state từ redux
+  const { err, status } = useSelector((state) => state.auth);
 
+  
   // Khởi tạo state cho các trường nhập liệu và thông báo lỗi
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const status = false;
   const [error, setError] = useState("");
+
+  // Regular định dạng email và sđt
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\d{10}$/;
 
   // Hàm xử lý submit form
   const handleSubmit = (e) => {
     e.preventDefault();
     // Kiểm tra các trường nhập liệu có hợp lệ không
     if (!fullName || !email || !password || !phone) {
-      setError("All fields are required");
+      setError("Bạn cần nhập tất cả các trường");
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setError("Định dạng email không hợp lệ");
+      return;
+    }
+    if (!phoneRegex.test(phone)) {
+      setError("Số điện thoại phải đủ 10 số");
       return;
     }
     if (password.length < 8) {
@@ -28,23 +47,28 @@ const SignUp = () => {
       return;
     }
 
-    // Lấy danh sách người dùng từ localStorage
-    const userArr = JSON.parse(localStorage.getItem("userArr")) || [];
-    // Kiểm tra xem email đã tồn tại chưa
-    const userExists = userArr.some((user) => user.email === email);
+    // Thêm người dùng mới vào mảng userArr , Thêm 1 trạng thái ON OFF để biết user này đang được đăng nhập hay chưa??
+    const newUser = {
+      fullname: fullName,
+      email: email,
+      password: password,
+      phone: phone,
+    };
+ 
 
-    if (userExists) {
-      setError("Email already exists");
-    } else {
-      // Thêm người dùng mới vào mảng userArr , Thêm 1 trạng thái ON OFF để biết user này đang được đăng nhập hay chưa??
-      const newUser = { fullName, email, password, phone, status };
-      userArr.push(newUser);
-      // Lưu mảng userArr vào localStorage
-      localStorage.setItem("userArr", JSON.stringify(userArr));
-      // Điều hướng đến trang đăng nhập
-      navigate("lognin");
-    }
+    dispatch(SignupUser(newUser));
+
+    // Điều hướng đến trang đăng nhập
+    // navigate("lognin");
   };
+
+  useEffect(() => {
+    if (status === "successful") {
+      dispatch(resetState());
+      // Điều hướng đến trang đăng nhập
+       navigate("lognin");
+    }
+  }, [status, dispatch, navigate]);
 
   return (
     <div
@@ -94,12 +118,13 @@ const SignUp = () => {
             <input
               className="appearance-none border h-full w-full p-8 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline input"
               id="phone"
-              type="phone"
-              placeholder="Phone"
+              type="number"
+              placeholder="number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
+          {err && (<p className="text-red-500">{err.message}</p>)}
           <div>
             <button
               type="submit"

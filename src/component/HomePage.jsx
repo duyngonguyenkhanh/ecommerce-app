@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../layout/Navbar";
 import Collection from "../layout/Collection";
 import Banner from "../layout/Banner";
 import Footer from "../layout/Footer";
-import { useData } from "../globalstate/Global";
 import Items from "../product/Items";
+import ChatApp from "../layout/Chat";
+import messenger from "../images/messenger.png"
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  const { value } = useData();
+  const [showChat, setShowChat] = useState(false);
+
+  //Nhận state
+  const items = useSelector(state => state.product.res || []) 
+
+  const handleclick = () => {
+    setShowChat(!showChat)
+  };
+
 
   return (
     <div>
@@ -16,10 +26,12 @@ const HomePage = () => {
           <Navbar />
           <Banner />
           <Collection />
-          <Items items={value.items} />
+          <Items items={items} />
         </div>
       </div>
-      <Footer/>
+      {showChat &&  <ChatApp />}
+      <img onClick={() => handleclick()} className="h-14 fixed z-50 top-[90%] right-0 mr-[100px]" src={messenger} alt="Admin Icon" />
+      <Footer />
     </div>
   );
 };

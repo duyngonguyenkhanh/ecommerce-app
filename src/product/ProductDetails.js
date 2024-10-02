@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addCart } from "../redux/cartSlice";
-
+import { useDispatch, useSelector } from "react-redux";
+import {addToCart} from "../redux/thunk/addToCart"
 // Component hiển thị thông tin chi tiết sản phẩm
 const ProductDetails = ({ product }) => {
+
+  const {err } = useSelector(state => state.product)
+ 
   // State chứa hình ảnh đang hiển thị
   const [img, setImg] = useState(null);
 
@@ -28,13 +30,12 @@ const ProductDetails = ({ product }) => {
   // Hàm xử lý thêm sản phẩm vào giỏ hàng
   const handleAddToCart = () => {
     const item = {
-      id: product._id.$oid,
-      name: product.name,
-      price: product.price,
-      quantity,
-      image: product.img1,
+      productId: product._id,
+      quantity: quantity
     };
-    dispatch(addCart(item)); // Gọi hành động thêm vào giỏ hàng
+
+    
+    dispatch(addToCart(item)); // Gọi hành động thêm vào giỏ hàng
   };
 
   return (

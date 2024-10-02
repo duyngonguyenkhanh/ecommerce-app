@@ -1,9 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getCartItems } from './thunk/getCart';
+import { decrementProduct, incrementProduct } from './thunk/changeQuantity';
 
 // Khởi tạo state ban đầu
 const initialState = {
   items: [],
   email: null,
+  res : null,
+  err: null,
+  status: 'idle',
+  cart: null,
 };
 
 // Tạo slice cho giỏ hàng với các hành động và reducer tương ứng
@@ -61,6 +67,49 @@ const cartSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCartItems.pending, (state) => {
+        state.status = "loading";
+        state.err = null;
+      })
+      .addCase(getCartItems.fulfilled, (state, action) => {
+        state.status = "successful";
+        state.cart = action.payload;
+        state.err = null
+        
+      })
+      .addCase(getCartItems.rejected, (state, action) => {
+        state.status = "failed";
+        state.err = action.payload;
+      })
+      .addCase(incrementProduct.pending, (state) => {
+        state.status = "loading";
+        state.err = null;
+      })
+      .addCase(incrementProduct.fulfilled, (state, action) => {
+        state.status = "successful";
+        state.err = null
+        
+      })
+      .addCase(incrementProduct.rejected, (state, action) => {
+        state.status = "failed";
+        state.err = action.payload;
+      })
+      .addCase(decrementProduct.pending, (state) => {
+        state.status = "loading";
+        state.err = null;
+      })
+      .addCase(decrementProduct.fulfilled, (state, action) => {
+        state.status = "successful";
+        state.err = null
+        
+      })
+      .addCase(decrementProduct.rejected, (state, action) => {
+        state.status = "failed";
+        state.err = action.payload;
+      })
+    }
 });
 
 // Xuất các hành động để sử dụng trong component

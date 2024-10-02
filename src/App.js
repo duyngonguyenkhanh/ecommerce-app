@@ -8,8 +8,19 @@ import CheckoutPage from "./component/CheckoutPage";
 import { DataProvider } from "./globalstate/Global";
 import SigIn from "./component/SigIn";
 import SignUp from "./component/SignUp";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getAllProduct } from "./redux/thunk/getAllProduct";
+import HistoryOrder from "./component/HistoryOrder";
 
 function App() {
+
+  //hàm dispatch
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllProduct())
+  }, [dispatch]);
   return (
     <div className="App">
       <DataProvider>
@@ -19,7 +30,7 @@ function App() {
           <Routes>
             {/* Tuyến đường mặc định, khi người dùng truy cập vào root URL */}
             <Route path="/" element={<HomePage />} />
-            
+
             {/* Tuyến đường cho trang chủ */}
             <Route path="/home" element={<HomePage />} />
 
@@ -40,6 +51,9 @@ function App() {
 
             {/* Tuyến đường cho trang thanh toán */}
             <Route path="/checkout" element={<CheckoutPage />} />
+
+            {/* Tuyến đường cho trang lịch sử mua hàng */}
+            <Route path="/history" element={<HistoryOrder />} />
           </Routes>
         </HashRouter>
       </DataProvider>

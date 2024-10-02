@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import banner from "../images/banner1.jpg";
 import { useNavigation } from "../layout/useNavigation";
-import Navbar from "../layout/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { onLogin } from "../redux/authSlice";
+import { onLogin, resetState } from "../redux/authSlice";
+import { LoginUser } from "../redux/thunk/login";
 
 const SignIn = () => {
   const dispatch = useDispatch(); // Sử dụng dispatch để gửi hành động
-  const currentUser = useSelector(state => state.auth.currentUser); // Lấy trạng thái người dùng hiện tại từ Redux store
+  const {status, err , currentUser} = useSelector(state => state.auth)
   const [userArr, setUserArr] = useState([]); // State để lưu trữ mảng người dùng
   const [email, setEmail] = useState(""); // State để lưu trữ email
   const [password, setPassword] = useState(""); // State để lưu trữ mật khẩu
@@ -38,32 +38,36 @@ const SignIn = () => {
       return;
     }
 
-    // Tìm người dùng trong mảng userArr
-    const user = userArr.find(user => user.email === email && user.password === password);
+    const userLogin = {email: email, password: password}
+   
+    dispatch(LoginUser(userLogin))
+    // // Tìm người dùng trong mảng userArr
+    // const user = userArr.find(user => user.email === email && user.password === password);
 
-    if (user) {
-      setError(""); // Xóa thông báo lỗi nếu có
-      dispatch(onLogin(user)); // Cập nhật trạng thái người dùng hiện tại
-      localStorage.setItem("currentUser", JSON.stringify(user)); // Lưu người dùng hiện tại vào LocalStorage
-      handleNavigate("home"); // Chuyển hướng đến trang chủ
-    } else {
-      setError("Invalid email or password"); // Thông báo lỗi nếu thông tin không chính xác
-      setPassword(""); // Xóa trường mật khẩu
-    }
+    // if (user) {
+    //   setError(""); // Xóa thông báo lỗi nếu có
+    //   dispatch(onLogin(user)); // Cập nhật trạng thái người dùng hiện tại
+    //   localStorage.setItem("currentUser", JSON.stringify(user)); // Lưu người dùng hiện tại vào LocalStorage
+    //   handleNavigate("home"); // Chuyển hướng đến trang chủ
+    // } else {
+    //   setError("Invalid email or password"); // Thông báo lỗi nếu thông tin không chính xác
+    //   setPassword(""); // Xóa trường mật khẩu
+    // }
   };
 
-  // Nếu người dùng đã đăng nhập, chuyển hướng đến trang chủ
-  if (currentUser) {
-    handleNavigate("home");
-    return null;
-  }
+  useEffect(() => {
+    if (status === 'successful') {
+      dispatch(resetState())
+      handleNavigate("home"); // Chuyển hướng đến trang chủ
+    }
+  }, [dispatch, handleNavigate, status])
+
 
   return (
     <div
       className="bg-cover bg-center "
       style={{ backgroundImage: `url(${banner})` }}
     >
-      <Navbar />
       <div className="flex items-center justify-center h-screen px-[20%]">
         <form
           onSubmit={handleSubmit}
@@ -72,7 +76,7 @@ const SignIn = () => {
           <h1 className="text-center text-[25px] text-primary italic my-[70px]">
             Sign In
           </h1>
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+          {err && <p className="text-red-500 text-center mb-4">{err.message}</p>}
           <div className="">
             <input
               className="appearance-none border rounded h-full  w-full p-8 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

@@ -7,3 +7,58 @@ button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.4);
 }
+
+@keyframes imgshow {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(0.7);
+  }
+  40% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+  80% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+@keyframes popup {
+  0% {
+    transform: scale(0) translateX(0);
+  }
+  20% {
+    transform: scale(0.7) translateX(-10px);
+  }
+  40% {
+    transform: scale(1.1) translateX(10px);
+  }
+  60% {
+    transform: scale(0.9) translateX(-5px);
+  }
+  80% {
+    transform: scale(1.05) translateX(5px);
+  }
+  100% {
+    transform: scale(1) translateX(0);
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.chatWindow {
+  animation: popup 1s ease both;
+}
+
+.imgShowCase {
+  animation: imgshow 1s ease both;  
+}

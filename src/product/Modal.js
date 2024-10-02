@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigation } from "../layout/useNavigation";
+import '../style/style.css'
 
 const Modal = ({ item, onClose, show }) => {
   //Khởi tạo hàm chuyển hưởng
@@ -10,10 +11,9 @@ const Modal = ({ item, onClose, show }) => {
 
   const handlewiev = (id) => {
     handleNavigate(`detail/${id}`)
-    console.log(id);
   };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center ">
+    <div className="fixed inset-0 bg-opacity-100 backdrop-blur-sm flex justify-center items-center chatWindow ">
       <div className=" w-auto m-[16%]">
         <div className="flex">
           <img className="w-[50%]" src={`${item.img1}`} alt="" />

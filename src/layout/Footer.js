@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="item-center bg-[#111111] px-[20%]  py-[5%]">
       <div className="flex space-x-[200px] justify-center text-[#ffff] italic ">
         <div>
-          <h1 className="text-xl mb-5">CUSTOMER SERVICES</h1>
+          <h1 className="mb-5">CUSTOMER SERVICES</h1>
           <div className="space-y-3">
             <p>Help & Contact Us</p>
             <p>Return & Refunds</p>
@@ -14,7 +14,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-xl mb-5">COMPANY</h1>
+          <h1 className="mb-5">COMPANY</h1>
           <div className="space-y-3">
             <p>What We Do</p>
             <p>Availbble Service</p>
@@ -23,7 +23,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-xl mb-5">SOCIAL MEDIA</h1>
+          <h1 className="mb-5">SOCIAL MEDIA</h1>
           <div className="space-y-3">
             <p>Twiter</p>
             <p>Instagram</p>

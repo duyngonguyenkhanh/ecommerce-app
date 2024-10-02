@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../layout/Navbar";
 import { useData } from "../globalstate/Global";
 import { useNavigation } from "../layout/useNavigation";
@@ -6,7 +6,10 @@ import { useNavigation } from "../layout/useNavigation";
 const ShopPage = () => {
   const handleNavigate = useNavigation();
 
-  const { value } = useData();
+  const { items } = useData();
+
+  useEffect(() => {setCategory(items)},[items])
+  
 
   const [show, setShow] = useState({
     all: true,
@@ -20,7 +23,7 @@ const ShopPage = () => {
     other: false,
   });
 
-  const [category, setCategory] = useState(value.items); //state chứa giá trị khởi tạo là tất cả items
+  const [category, setCategory] = useState(items); //state chứa giá trị khởi tạo là tất cả items
 
   //Hàm xử lý khi click vào 1 category hàm nhận type và setstate cho type đó thành true và lọc ra danh sách các item cùng type
   const handleClick = (type) => {
@@ -39,9 +42,9 @@ const ShopPage = () => {
     }));
     //kiểm tra type nếu là all thì setCategory = tất cả items và ngược lại lọc ra những item có chứa type nhận về
     if (type === "all") {
-      setCategory(value.items);
+      setCategory(items);
     } else {
-      const category = value.items.filter((item) => item.category === type);
+      const category = items.filter((item) => item.category === type);
       setCategory(category);
     }
   };
@@ -176,13 +179,17 @@ const ShopPage = () => {
           </>
           <>
             <select className="border border-black h-[25px]" name="" id="">
-              <option value="">Default Sorting</option>
+              <option items="">Default Sorting</option>
             </select>
           </>
         </div>
         <div className="grid grid-cols-3 max-h-[60%] gap-5 italic animation-container">
           {category.map((item, index) => (
-            <div key={index} className="" onClick={() => handleClickItem(item._id.$oid)}>
+            <div
+              key={index}
+              className=""
+              onClick={() => handleClickItem(item._id)}
+            >
               <img
                 className="animate-slideInFadeIn transition-transform duration-500 transform hover:scale-110 animate-fadeIn"
                 src={`${item.img1}`}
@@ -203,7 +210,7 @@ const ShopPage = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="h-full w-[1300px] text">
+      <div className="h-full w-[1000px] text">
         <Navbar />
         <Banner />
         <div className="flex">

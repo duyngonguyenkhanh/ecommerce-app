@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"; // Import useNavigate từ react-router-dom
 import { onLogin, onLogout } from "../redux/authSlice"; // Import hành động onLogout từ authSlice
+import { logOutUser } from "../redux/thunk/logOutUser";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser); // Lấy trạng thái người dùng hiện tại từ Redux store
-
 
   // Lấy mảng userArr từ LocalStorage khi component được tải lên
   useEffect(() => {
@@ -21,14 +21,14 @@ const Navbar = () => {
 
   // Hàm xử lý logout
   const handleLogout = () => {
-    localStorage.removeItem("currentUser"); // Xóa thông tin người dùng khỏi localStorage
     dispatch(onLogout()); // Dispatch hành động logout
+    dispatch(logOutUser())
     navigate("/home"); // Chuyển hướng về trang chủ
   };
 
   return (
-    <div className="flex justify-between py-5">
-      <div className="inline-flex space-x-3 text-[20px] italic font-medium">
+    <div className="flex justify-between py-5 ">
+      <div className="inline-flex space-x-3 text-[20px] italic font-thin">
         <button
           className={
             currentUser
@@ -55,11 +55,11 @@ const Navbar = () => {
         </button>
       </div>
 
-      <button className="font-bold text-[20px] hover:text-[#f3d8ac] italic">
+      <button className="font-medium text-[20px] hover:text-[#f3d8ac] italic">
         BOUTIQUE
       </button>
 
-      <div className="inline-flex space-x-3 text-[20px] italic font-medium">
+      <div className="inline-flex space-x-3 text-[20px] italic font-thin">
         <div className="flex hover:text-[#f3d8ac] items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@ const Navbar = () => {
               >
                 <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
               </svg>
-              <button className="italic pl-1">{currentUser.fullName}</button>
+              <button onClick={() => {navigate('/history')}} className="italic pl-1">{currentUser.fullname}</button>
             </div>
             <button
               className="flex hover:text-[#f3d8ac] italic"

@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import reportWebVitals from "./reportWebVitals";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Navbar from "./layout/Navbar";
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;400i;700&display=swap"></link>
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
