@@ -1,30 +1,33 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { updateCart } from "../redux/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+// import { updateCart } from "../redux/cartSlice";
 import { deleteCart } from "../redux/cartSlice";
 import { useNavigation } from "../layout/useNavigation";
-import { decrementProduct, incrementProduct } from "../redux/thunk/changeQuantity";
-import { getCartItems } from "../redux/thunk/getCart";
+// import { decrementProduct, incrementProduct } from "../redux/thunk/changeQuantity";
+// import { getCartItems } from "../redux/thunk/getCart";
 
 
 const Cart = ({ items }) => {
   // Khởi tạo dispatch để gọi hành động Redux
   const dispatch = useDispatch();
   const handleNavigate = useNavigation();
+  
+  const {err} = useSelector(state => state.cart)
 
   
-  // Hàm tăng quantity
-  const increase = (id, quantity) => {
-    dispatch(incrementProduct({ productId: id }));
-    dispatch(getCartItems());
-  };
-  // Hàm giảm quantity
-  const decrease = (id, quantity) => {
-    if (quantity > 1) {
-      dispatch(decrementProduct({ productId: id  }));
-      dispatch(getCartItems());
-    }
-  };
+  // // Hàm tăng quantity
+  // const increase = (id, quantity) => {
+  //   dispatch(incrementProduct({ productId: id }));
+  //   dispatch(getCartItems());
+  // };
+  // // Hàm giảm quantity
+  // const decrease = (id, quantity) => {
+  //   if (quantity > 1) {
+  //     dispatch(decrementProduct({ productId: id  }));
+  //     dispatch(getCartItems());
+  //   }
+  // };
+
   return (
     <div>
       <div className="flex justify-between items-center bg-gray-100 h-[50px] text-[18px] font-medium">
@@ -48,14 +51,14 @@ const Cart = ({ items }) => {
             <div className="w-[20%] flex justify-center">
               <div className="flex items-center">
                 <img
-                  onClick={() => decrease(item.id, item.quantity)} // Truyền hàm giảm quantity vào component
+                  // onClick={() => decrease(item.id, item.quantity)} // Truyền hàm giảm quantity vào component
                   className="h-[12px]"
                   src={require("../images/leftarrowicon.png")}
                   alt=""
                 />
                 <p className="text-[18px] px-5">{item.quantity}</p>
                 <img
-                  onClick={() => increase(item.id, item.quantity)} // Truyền hàm tăng quantity vào component
+                  // onClick={() => increase(item.id, item.quantity)} // Truyền hàm tăng quantity vào component
                   className="h-[12px]"
                   src={require("../images/rightarrowicon.png")}
                   alt=""
@@ -83,6 +86,7 @@ const Cart = ({ items }) => {
             </div>
           </div>
         ))}
+        {err && <p className="text-red-500">{err.message}</p>}
       </div>
       <div className="flex justify-between items-center bg-gray-100 px-7 h-[70px] ">
         <div className="flex space-x-2 items-center">

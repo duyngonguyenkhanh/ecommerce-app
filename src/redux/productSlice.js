@@ -12,7 +12,10 @@ const productSlice = createSlice({
     status: "idle",
   },
   reducers: {
-    
+    resetState: (state) => {
+      state.err = null;
+      state.status = "idle"
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -49,7 +52,7 @@ const productSlice = createSlice({
 });
 
 // Xuất các hành động để sử dụng trong các component
-export const { onLogin, onLogout, resetState } = productSlice.actions;
+export const { resetState } = productSlice.actions;
 
 // Xuất reducer để kết hợp vào store
 export default productSlice.reducer;

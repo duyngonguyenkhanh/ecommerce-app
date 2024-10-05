@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {addToCart} from "../redux/thunk/addToCart"
+import { resetState } from "../redux/productSlice";
 // Component hiển thị thông tin chi tiết sản phẩm
 const ProductDetails = ({ product }) => {
 
-  const {err } = useSelector(state => state.product)
+  const {err, status } = useSelector(state => state.product)
  
   // State chứa hình ảnh đang hiển thị
   const [img, setImg] = useState(null);
@@ -37,6 +38,15 @@ const ProductDetails = ({ product }) => {
     
     dispatch(addToCart(item)); // Gọi hành động thêm vào giỏ hàng
   };
+
+  useEffect(() => {
+    // Side effect: chạy khi component mount hoặc các giá trị phụ thuộc thay đổi
+  
+    return () => {
+      dispatch(resetState())
+    };
+  }, []);
+  
 
   return (
     <div className="flex space-x-9 pt-[100px]">
@@ -102,6 +112,8 @@ const ProductDetails = ({ product }) => {
             Add to cart
           </button>
         </div>
+        {err && <p className="text-red-500">{err.message}</p>}
+        {status === "successful" ? (<p className="text-green-500">{`You have added ${quantity} products to your cart`}</p>) : "" }
       </div>
     </div>
   );

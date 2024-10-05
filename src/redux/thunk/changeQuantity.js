@@ -30,7 +30,7 @@ export const decrementProduct = createAsyncThunk(
   "shop/decrement",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:3000/product/decrement`, {
+      const response = await fetch(`${apiUrl}/product/decrement`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
